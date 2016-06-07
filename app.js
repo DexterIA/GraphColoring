@@ -10,20 +10,29 @@ fs.readFile('graph.json', function (err, data) {
 });
 
 function createEmptyMatrix () {
-  "use strict";
   matrix  = [];
-  for (let i = 0; i < vertexCount; i++) {
+  for (var i = 0; i < vertexCount; i++) {
     matrix.push([]);
-    for (let j = 0; j < vertexCount; j++) {
+    for (var j = 0; j < vertexCount; j++) {
       matrix[i].push(0);
     }
   }
 }
 
 function createMatrix (network) {
-  vertexCount = network.length;
-  createEmptyMatrix();
-  network[0].forEach(function (edge) {
-
+  vertexCount = network.computers.length + 1;
+  network.computers.forEach(function(computer) {
+    computer.getEdges = function () {
+      return this.edges;
+    }
   });
+
+  network.computers.forEach(function (computer) {
+    console.log(computer.getEdges().join(' '));
+  });
+
+  //createEmptyMatrix();
+  //network[0].forEach(function (edge) {
+  //
+  //});
 }
