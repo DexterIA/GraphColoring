@@ -1,17 +1,29 @@
 var fs = require('fs'),
-  computers = [];
+  vertexCount = 0,
+  matrix;
 
-fs.readFile('input.txt', function (err, data) {
+fs.readFile('graph.json', function (err, data) {
   if (err) {
     return console.error(err);
   }
-  parseInput(data.toString());
+  createMatrix(JSON.parse(data));
 });
 
-function parseInput (file) {
-  var linesArray = file.split('\n'), edges = [];
-  linesArray.forEach(function (line) {
-    edges = line.split(' ');
+function createEmptyMatrix () {
+  "use strict";
+  matrix  = [];
+  for (let i = 0; i < vertexCount; i++) {
+    matrix.push([]);
+    for (let j = 0; j < vertexCount; j++) {
+      matrix[i].push(0);
+    }
+  }
+}
+
+function createMatrix (network) {
+  vertexCount = network.length;
+  createEmptyMatrix();
+  network[0].forEach(function (edge) {
 
   });
 }
