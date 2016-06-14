@@ -25,7 +25,9 @@ fs.readFile('graph.json', function (err, data) {
   if (err) {
     return console.error(err);
   }
-  createMatrix(JSON.parse(data.toString()));
+  var network = JSON.parse(data.toString());
+  vertexCount = network.computers.length + 1;
+  createMatrix(network);
 });
 
 /**
@@ -65,10 +67,10 @@ function createMatrix (network) {
   fillMatrix(0, queue);
   while (queue.length > 0) {
     visit[queue[0]] = true;
-    fillMatrix(queue[0], network.computers[queue[0]].edges);
-    queue = addToQueue(queue, network.computers[queue[0]].edges, visit);
+    fillMatrix(queue[0], network.computers[queue[0] - 1].edges);
+    queue = addToQueue(queue, network.computers[queue[0] - 1].edges, visit);
     queue.splice(0, 1);
   }
   var colors = graphColoring(matrix);
-  console.log('Цвет каждой вершины: ' + colors.join(' '));
+  console.log('Цвет каждого компьютера: ' + colors.join(' '));
 }
