@@ -2,7 +2,15 @@ var fs = require('fs'),
   graphColoring = require('./graphColoring'),
   vertexCount = 0,
   matrix,
-  
+
+  /**
+   * Добаляет элемент в очередь с учётом
+   * уже находящихся в ней элементов и информации о посещении
+   * @param queue - текущее состояние очереди
+   * @param edges - список элементов, которые нужно добавить
+   * @param visited - список элементов, которые не нужно добавлять
+   * @returns {Array} - новая очередь
+   */
   addToQueue = function (queue, edges, visited) {
     var exist, newQueue = queue;
     edges.forEach(function(edge) {
